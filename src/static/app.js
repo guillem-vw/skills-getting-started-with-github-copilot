@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
             removeButton.title = `Unregister ${participant}`;
             removeButton.addEventListener("click", async () => {
+              removeButton.disabled = true;
               try {
                 const response = await fetch(
                   `/activities/${encodeURIComponent(name)}/participants?email=${encodeURIComponent(participant)}`,
@@ -75,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 await fetchActivities();
               } catch (error) {
+                removeButton.disabled = false;
                 messageDiv.textContent = error.message || "Failed to unregister participant";
                 messageDiv.className = "error";
                 messageDiv.classList.remove("hidden");
